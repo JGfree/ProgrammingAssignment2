@@ -13,61 +13,29 @@ makeCacheMatrix <- function(x = matrix()) {
 cacheSolve <- function(x, ...) {
         ## Return a matrix that is the inverse of 'x'
 }
-makeCacheMatrix <- function( m = matrix() ) {
-  
-  ## Initialize first inverse property
-  i <- NULL
-  
-  ## Set the matrix
-  set <- function( matrix ) {
-    m <<- matrix
-    i <<- NULL
+makeCacheMatrix <- function(x = matrix(sample(1:100,9),3,3)) {
+  s <- NULL
+  set <- function(y) {
+    x <<- y
+    s <<- NULL
   }
-  
-  ## Get the matrix
-  get <- function() {
-    ## Return the matrix
-    m
-  }
-  
-  ## Set the inverse of the matrix
-  setInverse <- function(inverse) {
-    i <<- inverse
-  }
-  
-  ## Get the inverse of the matrix
-  getInverse <- function() {
-  ## Return the inverse property
-    i
-  }
-  
-## List of the methods
-list(set = set, get = get,
- setInverse = setInverse,
- getInverse = getInverse)
+  get <- function() x
+  setsolve <- function(solve) s <<- solve
+  getsolve <- function() s
+  list(set = set, get = get,
+       setsolve = setsolve,
+       getsolve = getsolve)
 }
-
-
-
+##
+## Change "mean" to "solve" and "m" to "s"
 cacheSolve <- function(x, ...) {
-  
-m <- x$getInverse()
-  
-  
-if( !is.null(m) ) {
-message("getting cached data")
-return(m)
-}
-  
-## 
-data <- x$get()
-  
-## Calculate the inverse with matrix multiplication
-m <- solve(data) %*% data
-  
-## Set the inverse to object
-x$setInverse(m)
-  
-## Return the matrix
-m
+  s <- x$getsolve()
+  if(!is.null(s)) {
+    message("getting inversed matrix")
+    return(s)
+  }
+  data <- x$get()
+  s <- solve(data, ...)
+  x$setsolve(s)
+  s
 }
