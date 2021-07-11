@@ -13,7 +13,7 @@ makeCacheMatrix <- function(x = matrix()) {
 cacheSolve <- function(x, ...) {
         ## Return a matrix that is the inverse of 'x'
 }
-makeCacheMatrix <- function(x = matrix(sample()) {
+makeCacheMatrix <- function(x = matrix()) {
   s <- NULL
   set <- function(y) {
     x <<- y
@@ -26,7 +26,7 @@ makeCacheMatrix <- function(x = matrix(sample()) {
        setsolve = setsolve,
        getsolve = getsolve)
 }
-## "mean" changed to "solved", "m" changed to "s"
+
 cacheSolve <- function(x, ...) {
   s <- x$getsolve()
   if(!is.null(s)) {
